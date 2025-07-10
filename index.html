@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodeCraze - Premium Code Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <style>
+        :root {
+            --accent-color: #FFD700;
+            --dark-bg: #121212;
+            --darker-bg: #0a0a0a;
+            --card-bg: rgba(25, 25, 25, 0.6);
+            --nav-bg: rgba(18, 18, 18, 0.8);
+            --text-primary: #ffffff;
+            --text-secondary: #e0e0e0;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: var(--nav-bg);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            left: 0;
+            bottom: -5px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background: var(--text-primary);
+            margin: 5px;
+            transition: var(--transition);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://cdn.pixabay.com/photo/2016/11/23/14/45/coding-1853305_1280.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 70px;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+            letter-spacing: 1px;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: var(--text-secondary);
+            max-width: 700px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--accent-color);
+            color: var(--darker-bg);
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--accent-color);
+        }
+
+        /* Featured Products */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.15);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+
+        .product-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .product-price {
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .product-rating {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .buy-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--accent-color);
+            color: var(--darker-bg);
+            border: none;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .buy-btn:hover {
+            background: #e0bb00;
+            transform: scale(1.05);
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+        }
+
+        .about-img {
+            width: 45%;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .about-img img {
+            width: 100%;
+            display: block;
+        }
+
+        .about-text {
+            width: 50%;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--accent-color);
+            color: var(--darker-bg);
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .submit-btn:hover {
+            background: #e0bb00;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .footer-column h4 {
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--accent-color);
+            color: var(--darker-bg);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            margin-top: 40px;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Media Queries */
+        @media screen and (max-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 80%;
+                background: var(--darker-bg);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: 0.5s;
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                margin: 20px 0;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .about-img, .about-text {
+                width: 100%;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="#home" class="logo">CodeCraze</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Shop</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <h1 data-aos="fade-up">CodeCraze</h1>
+            <p data-aos="fade-up" data-aos-delay="200">Professional Code Projects & Web Templates</p>
+            <a href="#products" class="cta-btn" data-aos="fade-up" data-aos-delay="400">Explore Products</a>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section id="products" class="products-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Featured Products</h2>
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card" data-aos="fade-up">
+                    <img src="https://dl.dropboxusercontent.com/scl/fi/culb619osqqmawv1saczk/netflix-mobile-application-logo-free-png.png?rlkey=mxsamvifnonbtzkz1zlr88kyx&st=7v7gbbjj
+" alt="AI Project" class="product-img">
+                    <div class="product-info">
+                        <h3 class="product-title">Netflix Animation</h3>
+                        <p class="product-description">Animated HTML/CSS project for modern Netflix-style UI.FULLY EDITABLE CODE IN JUST 👇🏻</p>
+                        <div class="product-price">₹80</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <a class="btn" href="https://codecraze.gumroad.com/l/axykkb" target="_blank">Buy Now</a>
+                    </div>
+                </div>
+ 
+                <!-- Product 2 -->
+                <div class="product-card" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://cdn.pixabay.com/photo/2017/01/29/13/21/mobile-devices-2017980_1280.png" alt="E-commerce Template" class="product-img">
+                    <div class="product-info">
+                        <h3 class="product-title">Gender and Age Detection master-</h3>
+                        <p class="product-description">Unlock the power of artificial intelligence with Gender and Age Detection Master – a cutting-edge solution that instantly predicts a person’s gender and age from a photo using advanced computer vision and deep learning technology.
+
+✅ Features
+🚹🚺 Accurate gender prediction
+🧒👦👨👵 Precise age estimation across all age groups
+⚡ Fast, real-time results
+🔒 100% secure and private</p>
+                        <div class="product-price">Special offer🤩 ₹150</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                      <a class="btn" href="https://codecraze.gumroad.com/l/hyihj" target="_blank">Buy Now</a>
+
+
+                      </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://dl.dropboxusercontent.com/scl/fi/5jpbbuyckfj3bs6y000ny/ChatGPT-Image-Jul-10-2025-11_32_43-AM.png?rlkey=wn9bzoadsthbswzzl1yobbg3c&st=8sd0whfx
+" alt="CRM System" class="product-img">
+                    <div class="product-info">
+                        <h3 class="product-title">RomanticWeb:Birthday Edition</h3>
+                        <p class="product-description"> Features:
+
+💖 3D-styled birthday card design with glowing text
+
+💌 “Happy Birthday My Forever” title – fully editable
+📸 Integrated photo gallery 
+🎶 Light romantic background music
+💝 Surprise reveal button with animated love message
+💫 Floating hearts, sparkles, and smooth transitions
+📱 100% responsive (mobile + desktop)
+🧠 No login, no app – just send the link and make her day</p>
+                        <div class="product-price">₹100</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                       <a class="btn" href="https://codecraze.gumroad.com/l/yjcigo" target="_blank">Buy Now</a>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://dl.dropboxusercontent.com/scl/fi/hto151y0gmnu4xbtkrq3o/WhatsApp-Image-2025-07-10-at-1.06.19-PM.jpeg?rlkey=58a69k6apfbp44bl2bq52z268&st=cqvhtip8
+" alt="Portfolio Template" class="product-img">
+                    <div class="product-info">
+                        <h3 class="product-title">Portfolio Template</h3>
+                        <p class="product-description">Professional portfolio template for developers and designers with project showcase.Fully Editable Code</p>
+                        <div class="product-price">₹200</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <a class="btn" href="https://codecraze.gumroad.com/l/ojrst" target="_blank">Buy Now</a>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-card" data-aos="fade-up" data-aos-delay="400">
+                    <img src= "https://dl.dropboxusercontent.com/scl/fi/0gj12c9w34k6ld9kbj7m4/file_00000000f9e8622fb44ab22f66e1bbbb.png?rlkey=ho0jgz51kvznw65wrtkgtb3yy&st=kpjsh9tf
+" alt="Social Media Dashboard" class="product-img">
+                    <div class="product-info">
+                        <h3 class="product-title"> Forgive Me Madam Ji </h3>
+                        <p class="product-description">💖 Features:
+Stunning glassmorphism {IOS} UI design
+Romantic looping GIF background
+Smooth fade/slide animations for a magical experience
+A cute mini JavaScript game: "Catch the Hearts"
+Final handwritten-style apology letter with emoji effects
+No external frameworks — pure, clean, and customizable code</p>
+                        <div class="product-price">₹150</div>   
+                                                     
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <a class="btn" href="https://codecraze.gumroad.com/l/byrjr" target="_blank">Buy Now</a>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="product-card" data-aos="fade-up" data-aos-delay="500">
+                    <img src="https://dl.dropboxusercontent.com/scl/fi/bdppawtlyysmiy9hstzf9/ChatGPT-Image-Jul-10-2025-06_43_02-PM.png?rlkey=hkmx2fzjmwnwkyeydm9n1csqd&st=rigd6eq6
+" alt="Landing Page Bundle" class="product-img">
+                    <div class="product-info">
+                        <h3 class="product-title">will you be my gual</h3>
+                        <p class="product-description">✨ Features:
+🌸 iOS-style blurred background and glassmorphism effects
+💘 Smooth romantic animations
+🥹 “Will You Be Mine?” moment recreated in beautiful 3D
+💌 Clean, responsive design for mobile & desktop
+🎁 Lightweight, editable HTML/CSS code – no frameworks required
+🎨 Add your own name, message, GIFs, or voice notes easily</p>
+                        <div class="product-price">₹200</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <a class="btn" href="https://codecraze.gumroad.com/l/gpmpy" target="_blank">Buy Now</a>
+                    </div>
+                </div>
+
+                <!-- Product 7 -->
+                <div class="product-card" data-aos="fade-up" data-aos-delay="600">
+                    <img src="https://dl.dropboxusercontent.com/scl/fi/x3reb6zexew04spnwrhqj/ChatGPT-Image-Jul-10-2025-07_10_59-PM.png?rlkey=rf0vqdw7ozrqxfz1tvz2a227x&st=uvfb0v3f
+" alt="Learning Management System" class="product-img">
+                    <div class="product-info">
+                        <h3 class="product-title">Prank with madam😜</h3>
+                        <p class="product-description">🔥 What You Get:
+💻 Editable HTML, CSS – no coding skills needed
+💬 Fully customizable messages & emojis
+🎨 iOS-style blurred background with smooth animations
+😜 Perfect for harmless fun and playful teasing
+📱 100% Responsive design – mobile & desktop ready
+🚀 Lightweight & fast loading</p>
+                        <div class="product-price">₹100</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                         <a class="btn" href="https://codecraze.gumroad.com/l/zecea" target="_blank">Buy Now</a>
+                    </div>
+                </div>
+
+                <!-- Product 8 -->
+                <div class="product-card" data-aos="fade-up" data-aos-delay="700">
+                    <img src="https://dl.dropboxusercontent.com/scl/fi/ggngpsd5mvg5gmo80mimd/ChatGPT-Image-Jul-10-2025-07_27_52-PM.png?rlkey=ka442er5cs2yepa8a3b5gup8m&st=c08ah5ut
+" alt="Finance Dashboard" class="product-img">
+                    <div class="product-info">
+                        <h3 class="product-title">Jarvis your Personal Ai assistant</h3>
+                        <p class="product-description">🚀 Features:
+⚙️ Fully animated Jarvis-style UI
+🎙️ Voice command input (Web Speech API ready)
+🌐 Real-time info cards (weather, time, search, tasks, etc.)
+📱 Fully responsive across mobile, tablet & desktop
+🎛️ Futuristic sound effects & UI transitions
+💻 Built with clean HTML, CSS, and JavaScript
+✏️ Easy to customize with your own AI backend or features
+🧠 Optional chatbot integration (ChatGPT, Dialogflow, etc.)</p>
+                        <div class="product-price">₹300 old price. special offer ₹250</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                         <a class="btn" href="https://codecraze.gumroad.com/l/cbetu" target="_blank">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">About Us</h2>
+            <div class="about-content">
+                <div class="about-img" data-aos="fade-right">
+                    <img src="https://cdn.pixabay.com/photo/2015/12/04/14/05/code-1076536_1280.jpg" alt="About CodeWithTirth">
+                </div>
+                <div class="about-text" data-aos="fade-left">
+                    <h3>Premium Code Resources</h3>
+                    <p>CodeCraze is a premium marketplace for high-quality code projects, templates, and solutions. Our mission is to provide developers and businesses with reliable, well-documented, and scalable code resources.</p>
+                    <p>Founded in 2024 by a team of passionate developers, we understand the challenges of modern web development. Each of our products undergoes rigorous testing and follows industry best practices to ensure they meet the highest standards.</p>
+                    <p>Whether you're building a portfolio, e-commerce site, or complex web application, our code solutions will help you save time and deliver outstanding results.</p>
+                    <a href="#contact" class="cta-btn">Get In Touch</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">Contact Us</h2>
+      <form action="https://formspree.io/f/xanjgzwa" method="POST" class="contact-form" data-aos="fade-up">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" class="form-control" placeholder="Your Email" required />
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" class="form-control" placeholder="Your Message" required></textarea>
+        </div>
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_subject" value="New Contact Form Message!" />
+        <button type="submit" class="submit-btn">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>CodeCraze</h4>
+                    <p>Premium code resources for modern web development.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact Info</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> codecraze.dev@gmail.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Gujarat,India</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="javascript:void(0)"><i class="fab fa-twitter"></i></a>
+                        <a href="javascript:void(0)"><i class="fab fa-facebook-f"></i></a>
+                        <a href="javascript:void(0)"><i class="fab fa-instagram"></i></a>
+                        <a href="javascript:void(0)"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CodeCraze. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script id="app-script">
+    AOS.init({ duration: 800, easing: 'ease', once: true, offset: 100 });
+
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    const links = document.querySelectorAll('.nav-links li');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      hamburger.classList.toggle('toggle');
+      links.forEach((link, index) => {
+        if (link.style.animation) link.style.animation = '';
+        else link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+      });
+    });
+
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        if (navLinks.classList.contains('active')) {
+          navLinks.classList.remove('active');
+          hamburger.classList.remove('toggle');
+          links.forEach(link => (link.style.animation = ''));
+        }
+      });
+    });
+
+    const buyButtons = document.querySelectorAll('.buy-btn');
+    buyButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        alert('This is a prototype. In the full version, this would add the product to your cart.');
+      });
+    });
+  </script>
+</body>
+</html>
